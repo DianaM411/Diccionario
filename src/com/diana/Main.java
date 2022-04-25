@@ -3,8 +3,6 @@ package com.diana;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,11 +59,16 @@ public class Main {
 
                 for (letra = 'a'; letra <= 'z'; ++letra) {
                     if (l == letra) {//si la primera letra corresponde
-                        escribir = new FileWriter("diccionario" + File.separator + Character.toUpperCase(letra) + ".txt");//archivo donde escribimos las palabras
+                        if(new File("diccionario" + File.separator + Character.toUpperCase(letra) + ".txt").exists())
+                            escribir = new FileWriter("diccionario" + File.separator + Character.toUpperCase(letra) + ".txt",true);//archivo donde escribimos las palabras
+                        else
+                            escribir = new FileWriter("diccionario" + File.separator + Character.toUpperCase(letra) + ".txt");//archivo donde escribimos las palabras
                         escritura = new BufferedWriter(escribir);
                         //escribimos las palabras que empiezan por la letra en un archivo .txt
                         escritura.write(line);
                         escritura.newLine();
+                        escritura.close();
+                        break;
                     }
                 }
             }
